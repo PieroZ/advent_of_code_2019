@@ -1,16 +1,21 @@
 
-def calculate_required_fuel(mass):
+def calculate_required_fuel(mass, accumulated_mass=0):
     """
     >>> calculate_required_fuel(12)
     2
     >>> calculate_required_fuel(14)
     2
     >>> calculate_required_fuel(1969)
-    654
+    966
     >>> calculate_required_fuel(100756)
-    33583
+    50346
     """
-    return int(mass / 3) - 2
+    result = int(mass / 3) - 2
+    if result < 0:
+        return accumulated_mass
+    else:
+        accumulated_mass += result
+        return calculate_required_fuel(result, accumulated_mass)
 
 
 with open("input.txt") as input_file:
